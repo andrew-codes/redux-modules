@@ -1,0 +1,30 @@
+{
+  "name": "@andrew-codes/redux-modules",
+  "version": "1.0.0",
+  "description": "Suite of utilities to make it easier to develop modular redux modules that utilize ImmutableJS and Reselect. Follows a collection of best practices and lessons I've learned when developing large redux applications.",
+  "main": "dist/index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrew-codes/redux-modules.git"
+  },
+  "keywords": [
+	  "redux",
+	  "immutable",
+	  "immutablejs",
+	  "reselect",
+	  "modules",
+	  "ducks"
+  ],
+  "author": "Andrew Smith <andrew@andrew.codes>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andrew-codes/redux-modules/issues"
+  },
+  "homepage": "https://github.com/andrew-codes/redux-modules#readme"
+}
