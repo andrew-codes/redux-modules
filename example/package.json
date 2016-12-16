@@ -1,0 +1,9 @@
+{
+  "name": "example",
+  "version": "0.0.1",
+  "dependencies": {
+    "react": "^15.4.1",
+    "redux": "^3.6.0",
+    "redux-loop": "^2.2.2"
+  }
+}

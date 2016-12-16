@@ -1,7 +1,7 @@
 {
   "name": "@andrew-codes/redux-modules",
   "version": "1.0.0",
-  "description": "Suite of utilities to make it easier to develop modular redux modules that utilize ImmutableJS and Reselect. Follows a collection of best practices and lessons I've learned when developing large redux applications.",
+  "description": "Suite of utilities to make it easier to develop redux modules. Follows [principles of modular redux](https://github.com/erikras/ducks-modular-redux) and a collection of best practices/lessons I've learned when developing large ",
   "main": "dist/index.js",
   "directories": {
     "doc": "docs"
@@ -15,11 +15,11 @@
   },
   "keywords": [
     "redux",
-    "immutable",
-    "immutablejs",
-    "reselect",
-    "modules",
-    "ducks"
+    "module",
+    "modular",
+    "ducks",
+    "state management",
+    "react"
   ],
   "author": "Andrew Smith <andrew@andrew.codes>",
   "license": "MIT",
@@ -37,11 +37,11 @@
     "mocha": "^3.2.0"
   },
   "dependencies": {
-    "immutable": "^3.8.1",
-    "reselect": "^2.5.4"
+    "react": "^15.4.1",
+    "redux": "^3.6.0"
   },
   "peerDependencies": {
-    "immutable": "^3.8.1",
-    "reselect": "^2.5.4"
+    "react": "^15.4.1",
+    "redux": "^3.6.0"
   }
 }

@@ -1,8 +1,8 @@
 import {expect} from 'chai';
-import {createReducer} from './';
+import {createModule} from './';
 
 suite('redux-modules', () => {
-    test('it exports a create reducer utility function', () => {
-        expect(createReducer).to.be.a('function');
+    test('it exports a create module utility function', () => {
+        expect(createModule).to.be.a('function');
     });
 });
