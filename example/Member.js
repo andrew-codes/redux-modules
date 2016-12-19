@@ -12,7 +12,7 @@ const defaultState = {
     loggingIn: null,
     loggedIn: null,
     members: {},
-    saving: false,
+    saving: null,
     lastSaved: null
 };
 
@@ -87,17 +87,17 @@ const update = {
 
 // Save
 // ====================================
-// saves to server, then updates member on success
+// saves to server
 const save = {
     payloadTypes: {
         oid: string.isRequired
     },
     reducer: (state, {payload}) => loop(
-        {...state, saving: true},
+        {...state, saving: payload},
         // Side effect: save member to server
         Effects.promise(memberApi.save, payload)
-            .then(MemberModule.saveSuccess)
-            .catch(MemberModule.saveFailure)
+            .then(MemberModule.actions.saveSuccess)
+            .catch(MemberModule.actions.saveFailure)
     )
 };
 const saveSuccess = {
@@ -107,7 +107,7 @@ const saveSuccess = {
     reducer: (state, {payload}) => loop(
         {
             ...state,
-            saving: false,
+            saving: null,
             lastSaved: payload.oid
         },
         // Side effect: update member via update action
@@ -115,26 +115,36 @@ const saveSuccess = {
     )
 };
 const saveFailure = (state, {payload}) => loop({
-        saving: false,
+        ...state,
+        saving: null,
         lastSaved: null
     },
-    // Side effect: AJAX failure via failure action
-    Effects.constant(MemberModule.actions.failure(payload))
+    Effects.Batch([
+      // Side effect: update member by rolling back to previous member's data
+      Effects.constant(MemberModule.actions.update(state.saving))
+      // Side effect: AJAX failure via failure action
+      Effects.constant(MemberModule.actions.failure(payload))
+    ])
 );
 
 // Optimistic save
 // ====================================
-// Has two side effects, an optimistic update, then a save request to the server.
+// Has two side effects, a save request to the server and then rolling-back in case of errors.
 const optimisticSave = {
     payloadTypes: {
         oid: string.isRequired
     },
     reducer: (state, {payload}) => loop(
-        state,
+      // Optimistically updates state
+      {
+          ...state,
+          members: {
+              ...state.members,
+              ...payload
+          }
+      },
         // Batch these side effects together and execute as one state mutation
         Effects.batch([
-            // First side effect, a local state only update
-            Effects.constant(MemberModule.actions.update(payload)),
             // Second side effect, saving member to server
             Effects.constant(MemberModule.actions.save(payload))
         ])
